@@ -10,16 +10,39 @@
     uri: http://www.horde.org/licenses/bsd
   notes: |
     [jan] Officially support PHP 7.
+2.1.5:
+  api: 2.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-09-19
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes:
+2.1.4:
+  api: 2.0.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-09-19
+  license:
+    identifier: BSD-2-Clause
+    uri: http://www.horde.org/licenses/bsd
+  notes: |
+    [jan] Officially support PHP 7.
 2.1.3:
   api: 2.0.0
   state:
     release: stable
     api: stable
-  date: 2016-04-05
+  date: 2016-12-16
   license:
     identifier: BSD-2-Clause
     uri: http://www.horde.org/licenses/bsd
-  notes:
+  notes: |
+    [jan] Update Basque translation.
+    [jan] Update German translation.
 2.1.2:
   api: 2.0.0
   state:
