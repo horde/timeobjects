@@ -2,7 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>timeobjects</name>
  <channel>pear.horde.org</channel>
- <summary>Horde timeobjects application</summary>
+ <summary>Time-based objects application</summary>
  <description>The timeobjects application doesn&apos;t have an interface but provides streams of events to any applications that can consume them, notably the Horde calendar application. It contains drivers for facebook events and weather forecasts and can easily be extended by custom drivers.</description>
  <lead>
   <name>Michael J Rubinsky</name>
@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2017-10-17</date>
+ <date>2017-11-11</date>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -579,7 +579,7 @@
    </notes>
   </release>
   <release>
-   <date>2017-10-17</date>
+   <date>2017-11-11</date>
    <version>
     <release>3.0.0</release>
     <api>3.0.0</api>
