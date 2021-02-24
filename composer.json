@@ -26,17 +26,17 @@
     ],
     "require": {
         "horde/horde-installer-plugin": "*",
-        "php": "^5.3 || ^7",
-        "horde/core": "^2",
-        "horde/date": "^2",
-        "horde/exception": "^2",
-        "horde/url": "^2",
-        "horde/util": "^2",
+        "php": "^7",
+        "horde/core": "^3",
+        "horde/date": "^3",
+        "horde/exception": "^3",
+        "horde/url": "^3",
+        "horde/util": "^3",
         "ext-gettext": "*"
     },
     "suggest": {
-        "horde/service_facebook": "^2",
-        "horde/service_weather": "^2"
+        "horde/service_facebook": "^3",
+        "horde/service_weather": "^3"
     },
     "autoload": {
         "psr-0": {
