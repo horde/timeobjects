@@ -1,7 +1,7 @@
 {
     "name": "horde/timeobjects",
     "description": "Time-based objects application",
-    "type": "project",
+    "type": "horde-application",
     "homepage": "https://www.horde.org",
     "license": "BSD-2-Clause",
     "authors": [
@@ -16,34 +16,34 @@
             "role": "lead"
         }
     ],
-    "version": "3.0.0",
-    "time": "2017-11-11",
+    "version": "3.0.0alpha1",
+    "time": "2021-02-24",
     "repositories": [
         {
-            "type": "pear",
-            "url": "https://pear.horde.org"
+            "type": "composer",
+            "url": "https://horde-satis.maintaina.com/"
         }
     ],
     "require": {
+        "horde/horde-installer-plugin": "*",
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/Horde_Core": "^2",
-        "pear-pear.horde.org/Horde_Date": "^2",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Url": "^2",
-        "pear-pear.horde.org/Horde_Util": "^2",
+        "horde/core": "^2",
+        "horde/date": "^2",
+        "horde/exception": "^2",
+        "horde/url": "^2",
+        "horde/util": "^2",
         "ext-gettext": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Service_Facebook": "^2",
-        "pear-pear.horde.org/Horde_Service_Weather": "^2"
-    },
-    "replace": {
-        "pear-pear.horde.org/timeobjects": "3.*",
-        "pear-horde/timeobjects": "3.*"
+        "horde/service_facebook": "^2",
+        "horde/service_weather": "^2"
     },
     "autoload": {
         "psr-0": {
             "Timeobjects": "lib/"
+        },
+        "psr-4": {
+            "Horde\\Timeobjects\\": "src/"
         }
     }
 }
