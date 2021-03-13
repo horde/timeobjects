@@ -1,4 +1,5 @@
 {
+    "minimum-stability": "dev",
     "name": "horde/timeobjects",
     "description": "Time-based objects application",
     "type": "horde-application",
@@ -24,18 +25,18 @@
         }
     ],
     "require": {
-        "horde/horde-installer-plugin": "*",
+        "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0",
         "php": "^7",
-        "horde/core": "^3",
-        "horde/date": "^3",
-        "horde/exception": "^3",
-        "horde/url": "^3",
-        "horde/util": "^3",
+        "horde/core": "^3 || dev-FRAMEWORK_6_0",
+        "horde/date": "^3 || dev-FRAMEWORK_6_0",
+        "horde/exception": "^3 || dev-FRAMEWORK_6_0",
+        "horde/url": "^3 || dev-FRAMEWORK_6_0",
+        "horde/util": "^3 || dev-FRAMEWORK_6_0",
         "ext-gettext": "*"
     },
     "suggest": {
-        "horde/service_facebook": "^3",
-        "horde/service_weather": "^3"
+        "horde/service_facebook": "^3 || dev-FRAMEWORK_6_0",
+        "horde/service_weather": "^3 || dev-FRAMEWORK_6_0"
     },
     "autoload": {
         "psr-0": {
