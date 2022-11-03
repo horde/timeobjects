@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/timeobjects",
     "description": "Time-based objects application",
     "type": "horde-application",
@@ -17,15 +16,15 @@
             "role": "lead"
         }
     ],
-    "time": "2021-03-13",
+    "time": "2022-11-03",
     "repositories": [
         {
             "type": "composer",
-            "url": "https://horde-satis.maintaina.com/"
+            "url": "https://horde-satis.maintaina.com"
         }
     ],
     "require": {
-        "horde/horde-installer-plugin": "^2 || dev-FRAMEWORK_6_0",
+        "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^2",
         "php": "^7.4 || ^8",
         "horde/core": "^3 || dev-FRAMEWORK_6_0",
         "horde/date": "^3 || dev-FRAMEWORK_6_0",
@@ -34,6 +33,7 @@
         "horde/util": "^3 || dev-FRAMEWORK_6_0",
         "ext-gettext": "*"
     },
+    "require-dev": {},
     "suggest": {
         "horde/service_facebook": "^3 || dev-FRAMEWORK_6_0",
         "horde/service_weather": "^3 || dev-FRAMEWORK_6_0"
@@ -41,6 +41,12 @@
     "autoload": {
         "psr-0": {
             "Timeobjects": "lib/"
+        }
+    },
+    "autoload-dev": [],
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
         }
     }
 }

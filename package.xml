@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2021-03-13</date>
+ <date>2022-11-03</date>
  <version>
   <release>3.0.0alpha4</release>
   <api>3.0.0alpha1</api>
@@ -27,10 +27,18 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [rla] Enable PHP 8.x compat.
+* |+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name=".github">
+    <dir name="workflows">
+     <file name="ci.yml" role="horde" />
+     <file name="phpdoc.yml" role="horde" />
+     <file name="update-satis.yml" role="horde" />
+    </dir> <!-- /.github/workflows -->
+   </dir> <!-- /.github -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
     <file name=".keep" role="horde" />
@@ -154,9 +162,9 @@
  <dependencies>
   <required>
    <php>
-    <min>7.0.0</min>
-    <max>8.0.0alpha1</max>
-    <exclude>8.0.0alpha1</exclude>
+    <min>7.4.0</min>
+    <max>9.0.0alpha1</max>
+    <exclude>9.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -168,6 +176,9 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="timeobjects/.github/workflows/ci.yml" name=".github/workflows/ci.yml" />
+   <install as="timeobjects/.github/workflows/phpdoc.yml" name=".github/workflows/phpdoc.yml" />
+   <install as="timeobjects/.github/workflows/update-satis.yml" name=".github/workflows/update-satis.yml" />
    <install as="timeobjects/config/.htaccess" name="config/.htaccess" />
    <install as="timeobjects/config/.keep" name="config/.keep" />
    <install as="CHANGES" name="doc/CHANGES" />
@@ -217,33 +228,6 @@
   </filelist>
  </phprelease>
  <changelog>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
   <release>
    <version>
     <release>1.0.0beta1</release>
@@ -674,7 +658,8 @@
    <date>2021-03-13</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [rla] Enable PHP 8.x compat.
+* |+
    </notes>
   </release>
  </changelog>
