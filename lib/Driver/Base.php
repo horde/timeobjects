@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base TimeObjects_Driver.
  *
@@ -11,7 +12,7 @@
  */
 abstract class TimeObjects_Driver_Base
 {
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Constructor
@@ -31,7 +32,7 @@ abstract class TimeObjects_Driver_Base
      *
      * @return array  The array of time objects.
      */
-    abstract public function listTimeObjects(Horde_Date $start = null, Horde_Date $end = null);
+    abstract public function listTimeObjects(?Horde_Date $start = null, ?Horde_Date $end = null);
 
     /**
      * Ensure we have minimum requirements for concrete driver to run.
@@ -47,7 +48,7 @@ abstract class TimeObjects_Driver_Base
      *
      * @return TimeObjects_Driver
      */
-    public function factory($name, array $params = array())
+    public function factory($name, array $params = [])
     {
         $class = 'TimeObjects_Driver_' . basename($name);
         if (class_exists($class)) {

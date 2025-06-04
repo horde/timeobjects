@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Content through this API.

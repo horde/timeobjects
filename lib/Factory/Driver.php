@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Factory for TimeObjects_Driver
  *
@@ -18,23 +19,23 @@ class TimeObjects_Factory_Driver
      * @return TimeObjects_Driver
      * @throws TimeObjects_Exception
      */
-    public function create($name, array $params = array())
+    public function create($name, array $params = [])
     {
         $class = 'TimeObjects_Driver_' . basename($name);
 
         switch ($class) {
-        case 'TimeObjects_Driver_Weather':
-            if (!class_exists('Horde_Service_Weather')) {
-                throw new TimeObjects_Exception('Horde_Service_Weather is not installed');
-            }
-            break;
-        case 'TimeObjects_Driver_FacebookEvents':
-            if (!class_exists('Horde_Service_Facebook')) {
-                throw new TimeObjects_Exception('Horde_Service_Facebook is not installed');
-            }
-            break;
-        default:
-            throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
+            case 'TimeObjects_Driver_Weather':
+                if (!class_exists('Horde_Service_Weather')) {
+                    throw new TimeObjects_Exception('Horde_Service_Weather is not installed');
+                }
+                break;
+            case 'TimeObjects_Driver_FacebookEvents':
+                if (!class_exists('Horde_Service_Facebook')) {
+                    throw new TimeObjects_Exception('Horde_Service_Facebook is not installed');
+                }
+                break;
+            default:
+                throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
         }
 
         return new $class($params);

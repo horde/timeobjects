@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2009-2017 Horde LLC (http://www.horde.org/)
  *
@@ -7,6 +8,4 @@
  * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Exception extends Horde_Exception_Wrapped
-{
-}
+class TimeObjects_Exception extends Horde_Exception_Wrapped {}

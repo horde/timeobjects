@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TimeObjects driver for exposing a user's Facebook Events via the
  * listTimeObjects API.
@@ -37,7 +38,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
      *
      * @return array of listTimeObjects arrays.
      */
-    public function listTimeObjects(Horde_Date $start = null, Horde_Date $time = null)
+    public function listTimeObjects(?Horde_Date $start = null, ?Horde_Date $time = null)
     {
         try {
             $fb = $this->_getFacebook();
@@ -46,11 +47,11 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             throw new TimeObjects_Exception($e->getMessage());
         }
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
-        $key = 'timeobjects.facebook|' . $GLOBALS['registry']->getAuth() . '|' . (string)$start . '|' . (string)$time;
+        $key = 'timeobjects.facebook|' . $GLOBALS['registry']->getAuth() . '|' . (string) $start . '|' . (string) $time;
         if ($data = $cache->get($key, 3600)) {
             return json_decode($data, true);
         }
-        $objects = array();
+        $objects = [];
         foreach ($events as $event) {
             $start = new Horde_Date($event['start_time']);
             $end = $event['end_time']
@@ -61,21 +62,25 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 $title .= ' - ' . $event['tagline'];
             }
 
-            $objects[] = array(
+            $objects[] = [
                 'id' => $event['eid'],
                 'title' => $title,
-                'start' => sprintf('%d-%02d-%02dT%02d:%02d:00',
-                                   $start->year,
-                                   $start->month,
-                                   $start->mday,
-                                   $start->hour,
-                                   $start->min),
-                'end' => sprintf('%d-%02d-%02dT%02d:%02d:00',
-                                   $end->year,
-                                   $end->month,
-                                   $end->mday,
-                                   $end->hour,
-                                   $end->min),
+                'start' => sprintf(
+                    '%d-%02d-%02dT%02d:%02d:00',
+                    $start->year,
+                    $start->month,
+                    $start->mday,
+                    $start->hour,
+                    $start->min
+                ),
+                'end' => sprintf(
+                    '%d-%02d-%02dT%02d:%02d:00',
+                    $end->year,
+                    $end->month,
+                    $end->mday,
+                    $end->hour,
+                    $end->min
+                ),
                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                 'location' => $event['location'],
                 'description' => $event['description'],
@@ -83,8 +88,8 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
                 'status' => (empty($event['rsvp_status']) ? 'free' : $event['rsvp_status']),
                 'private' => $event['privacy'] == 'SECRET',
                 'icon' => $event['pic_square'],
-                'params' => array()
-            );
+                'params' => [],
+            ];
         }
         $cache->set($key, json_encode($objects));
 
@@ -99,6 +104,6 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             throw new TimeObjects_Exception('Cannot load Facebook object.');
         }
 
-       return $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
+        return $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
     }
 }

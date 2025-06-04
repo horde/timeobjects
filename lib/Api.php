@@ -1,4 +1,5 @@
 <?php
+
 /**
  * API methods for exposing various bits of data via the listTimeObjects API.
  *
@@ -14,12 +15,12 @@ class Timeobjects_Api extends Horde_Registry_Api
      *
      * @var array
      */
-    protected $_links = array(
+    protected $_links = [
         // @TODO: Probably implement a URL endpoint or something so we can
         // link to the correct external site depending on what time object
         // category we are referring to.
-        'show' => '#'
-    );
+        'show' => '#',
+    ];
 
     /**
      * Returns the available categories.
@@ -30,13 +31,13 @@ class Timeobjects_Api extends Horde_Registry_Api
     {
         $factory = $GLOBALS['injector']
             ->getInstance('TimeObjects_Factory_Driver');
-        $tests = array('Weather' => _("Weather"),
-                       'FacebookEvents' => _("Facebook Events"));
-        $drivers = array();
+        $tests = ['Weather' => _("Weather"),
+            'FacebookEvents' => _("Facebook Events")];
+        $drivers = [];
         foreach ($tests as $driver => $description) {
             try {
                 if ($factory->create($driver)->ensure()) {
-                    $drivers[$driver] = array('title' => $description, 'type' => 'single');
+                    $drivers[$driver] = ['title' => $description, 'type' => 'single'];
                 }
             } catch (Timeobjects_Exception $e) {
             }
@@ -55,7 +56,7 @@ class Timeobjects_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
-        $return = array();
+        $return = [];
         foreach ($time_categories as $category) {
             try {
                 $return = array_merge(
@@ -63,7 +64,8 @@ class Timeobjects_Api extends Horde_Registry_Api
                     $GLOBALS['injector']
                         ->getInstance('TimeObjects_Factory_Driver')
                         ->create($category)
-                        ->listTimeObjects($start, $end));
+                        ->listTimeObjects($start, $end)
+                );
             } catch (TimeObjects_Exception $e) {
             }
         }

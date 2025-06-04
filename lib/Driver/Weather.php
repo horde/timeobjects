@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TimeObjects driver for exposing weatherunderground information via the
  * listTimeObjects API.
@@ -55,7 +56,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
      *
      * @return array of listTimeObjects arrays.
      */
-    public function listTimeObjects(Horde_Date $start = null, Horde_Date $end = null)
+    public function listTimeObjects(?Horde_Date $start = null, ?Horde_Date $end = null)
     {
         global $conf, $prefs;
 
@@ -65,7 +66,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         $forecast_end = clone $forecast_start;
         $forecast_end->mday += 7;
         if ($end->before($forecast_start) || $start->after($forecast_end)) {
-            return array();
+            return [];
         }
 
         $weather = $this->_create();
@@ -78,7 +79,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             throw new Timeobjects_Exception($e);
         }
 
-        $objects = array();
+        $objects = [];
         foreach ($forecast as $data) {
             $day = $data->date;
             $day->hour = 0;
@@ -134,24 +135,24 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             if (!empty($weather->getStation()->sunrise)) {
                 $body .= sprintf(
                     _("Sunrise: %s\nSunset: %s\n"),
-                   $weather->getStation()->sunrise,
-                   $weather->getStation()->sunset
+                    $weather->getStation()->sunrise,
+                    $weather->getStation()->sunset
                 );
             }
 
             $body  .= "\n" . $description;
 
-            $objects[] = array(
+            $objects[] = [
                 'id' => $day->timestamp(), //???
                 'title' => $title,
                 'description' => $body,
                 'start' => $day->strftime('%Y-%m-%dT00:00:00'),
                 'end' => $day_end->strftime('%Y-%m-%dT00:00:00'),
                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
-                'params' => array(),
+                'params' => [],
                 'link' => new Horde_Url('#'),
-                'icon' => (string)Horde_Themes::img('weather/23x23/' . $data->icon)
-            );
+                'icon' => (string) Horde_Themes::img('weather/23x23/' . $data->icon),
+            ];
 
             $day->mday++;
         }
@@ -207,7 +208,8 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             try {
                 $location = $driver->searchLocations(
                     $GLOBALS['browser']->getIPAddress(),
-                    Horde_Service_Weather::SEARCHTYPE_IP);
+                    Horde_Service_Weather::SEARCHTYPE_IP
+                );
             } catch (Horde_Service_Weather_Exception $e) {
                 return;
             }
