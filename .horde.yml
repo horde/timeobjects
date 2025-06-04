@@ -23,7 +23,7 @@ authors:
     active: true
     role: lead
 version:
-  release: 3.0.0alpha5
+  release: 3.0.0-alpha5
   api: 3.0.0alpha1
 state:
   release: alpha
@@ -33,7 +33,7 @@ license:
   uri: http://www.horde.org/licenses/bsd
 dependencies:
   required:
-    php: ^7.4 || ^8
+    php: ^8.2
     composer:
       horde/core: ^3
       horde/date: ^3
