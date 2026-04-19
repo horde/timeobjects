@@ -4,7 +4,7 @@
  * TimeObjects driver for exposing weatherunderground information via the
  * listTimeObjects API.
  *
- * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2026 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -169,8 +169,8 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         $identity = $injector
             ->getInstance('Horde_Core_Factory_Identity')
             ->create();
-        if (!($location = $identity->getValue('location')) &&
-            $registry->hasInterface('contacts')) {
+        if (!($location = $identity->getValue('location'))
+            && $registry->hasInterface('contacts')) {
             try {
                 $contact = $GLOBALS['registry']->contacts->ownContact();
             } catch (Exception $e) {
