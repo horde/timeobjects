@@ -146,8 +146,8 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
                 'id' => $day->timestamp(), //???
                 'title' => $title,
                 'description' => $body,
-                'start' => $day->strftime('%Y-%m-%dT00:00:00'),
-                'end' => $day_end->strftime('%Y-%m-%dT00:00:00'),
+                'start' => $day->format('Y-m-d\T00:00:00'),
+                'end' => $day_end->format('Y-m-d\T00:00:00'),
                 'recurrence' => Horde_Date_Recurrence::RECUR_NONE,
                 'params' => [],
                 'link' => new Horde_Url('#'),
