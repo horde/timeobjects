@@ -10,20 +10,18 @@ description: >-
 list: ~
 type: application
 authors:
-  -
-    name: Michael J Rubinsky
+  - name: Michael J Rubinsky
     user: mrubinsk
     email: mrubinsk@horde.org
     active: true
     role: lead
-  -
-    name: Jan Schneider
+  - name: Jan Schneider
     user: jan
     email: jan@horde.org
     active: true
     role: lead
 version:
-  release: 3.0.0-beta1
+  release: 3.0.0-beta2
   api: 3.0.0alpha1
 state:
   release: beta
@@ -51,3 +49,102 @@ keywords:
   - weather
   - custom_data
 vendor: horde
+ci-platform:
+  '8.1':
+    - php: '>=7.2'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.2':
+    - php: '>=7.2'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.3':
+    - php: '>=7.2'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.4':
+    - php: '>=7.2'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.5':
+    - php: '>=7.2'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.6':
+    - php: '>=7.2'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+ci-platform-flags:
+  needs_installer_plugin: true
