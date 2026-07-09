@@ -40,6 +40,7 @@ class Timeobjects_Api extends Horde_Registry_Api
                     $drivers[$driver] = ['title' => $description, 'type' => 'single'];
                 }
             } catch (Timeobjects_Exception $e) {
+                Horde::log($e, 'ERR');
             }
         }
         return $drivers;
@@ -67,6 +68,7 @@ class Timeobjects_Api extends Horde_Registry_Api
                         ->listTimeObjects($start, $end)
                 );
             } catch (TimeObjects_Exception $e) {
+                Horde::log($e, 'ERR');
             }
         }
         return $return;

@@ -54,7 +54,7 @@ abstract class TimeObjects_Driver_Base
         if (class_exists($class)) {
             return new $class($params);
         } else {
-            throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s'), $class);
+            throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
         }
     }
 

@@ -61,11 +61,13 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         global $conf, $prefs;
 
         // No need to continue if the forecast days are not in the current
-        // range.
+        // range. If either bound is unspecified, assume the caller wants
+        // the full forecast window.
         $forecast_start = new Horde_Date(time());
         $forecast_end = clone $forecast_start;
         $forecast_end->mday += 7;
-        if ($end->before($forecast_start) || $start->after($forecast_end)) {
+        if (($end !== null && $end->before($forecast_start))
+            || ($start !== null && $start->after($forecast_end))) {
             return [];
         }
 
