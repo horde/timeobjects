@@ -1,5 +1,11 @@
 <?php
 
+namespace Horde\Timeobjects;
+
+use Horde_Registry_Api;
+use Horde\Timeobjects\Factory\Driver as DriverFactory;
+use Psr\Log\LoggerInterface;
+
 /**
  * API methods for exposing various bits of data via the listTimeObjects API.
  *
@@ -8,7 +14,7 @@
  * @category Horde
  * @package  Timeobjects
  */
-class Timeobjects_Api extends Horde_Registry_Api
+class Api extends Horde_Registry_Api
 {
     /**
      * Links.
@@ -29,8 +35,9 @@ class Timeobjects_Api extends Horde_Registry_Api
      */
     public function listTimeObjectCategories()
     {
-        $factory = $GLOBALS['injector']
-            ->getInstance('TimeObjects_Factory_Driver');
+        $injector = $GLOBALS['injector'];
+        $factory = $injector->getInstance(DriverFactory::class);
+        $logger = $injector->getInstance(LoggerInterface::class);
         $tests = ['Weather' => _("Weather"),
             'FacebookEvents' => _("Facebook Events")];
         $drivers = [];
@@ -39,8 +46,11 @@ class Timeobjects_Api extends Horde_Registry_Api
                 if ($factory->create($driver)->ensure()) {
                     $drivers[$driver] = ['title' => $description, 'type' => 'single'];
                 }
-            } catch (Timeobjects_Exception $e) {
-                Horde::log($e, 'ERR');
+            } catch (Exception $e) {
+                $logger->error(
+                    sprintf('TimeObjects driver "%s" failed to initialize: %s', $driver, $e->getMessage()),
+                    ['exception' => $e, 'driver' => $driver]
+                );
             }
         }
         return $drivers;
@@ -57,18 +67,21 @@ class Timeobjects_Api extends Horde_Registry_Api
      */
     public function listTimeObjects($time_categories, $start, $end)
     {
+        $injector = $GLOBALS['injector'];
+        $factory = $injector->getInstance(DriverFactory::class);
+        $logger = $injector->getInstance(LoggerInterface::class);
         $return = [];
         foreach ($time_categories as $category) {
             try {
                 $return = array_merge(
                     $return,
-                    $GLOBALS['injector']
-                        ->getInstance('TimeObjects_Factory_Driver')
-                        ->create($category)
-                        ->listTimeObjects($start, $end)
+                    $factory->create($category)->listTimeObjects($start, $end)
                 );
-            } catch (TimeObjects_Exception $e) {
-                Horde::log($e, 'ERR');
+            } catch (Exception $e) {
+                $logger->error(
+                    sprintf('TimeObjects category "%s" failed to list: %s', $category, $e->getMessage()),
+                    ['exception' => $e, 'category' => $category]
+                );
             }
         }
         return $return;

@@ -1,8 +1,13 @@
 <?php
 
 /**
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Content through this API.
+ * Bootstrap for the Timeobjects application.
+ *
+ * Defines TIMEOBJECTS_BASE / HORDE_BASE and pulls in the Horde framework
+ * core so Horde\Timeobjects\Application (in src/) is loadable.
+ *
+ * The class itself lives at Horde\Timeobjects\Application in src/. The
+ * Registry PSR-4-probes that name first (Core/lib/Horde/Registry.php:924).
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -27,8 +32,3 @@ if (!defined('HORDE_BASE')) {
 /* Load the Horde Framework core (needed to autoload
  *  Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
-
-class Timeobjects_Application extends Horde_Registry_Application
-{
-    public $version = '3.0.0-beta2';
-}

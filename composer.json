@@ -31,6 +31,7 @@
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
         "horde/url": "^3 || dev-FRAMEWORK_6_0",
         "horde/util": "^3 || dev-FRAMEWORK_6_0",
+        "psr/log": "^1 || ^2 || ^3",
         "ext-gettext": "*"
     },
     "require-dev": {},
@@ -39,8 +40,8 @@
         "horde/service_weather": "^3 || dev-FRAMEWORK_6_0"
     },
     "autoload": {
-        "psr-0": {
-            "Timeobjects": "lib/"
+        "psr-4": {
+            "Horde\\Timeobjects\\": "src/"
         }
     },
     "autoload-dev": {},

@@ -1,5 +1,17 @@
 <?php
 
+namespace Horde\Timeobjects\Driver;
+
+use Exception as BaseException;
+use Horde\Timeobjects\Exception;
+use Horde_Date;
+use Horde_Date_Recurrence;
+use Horde_Service_Weather;
+use Horde_Service_Weather_Exception;
+use Horde_Themes;
+use Horde_Url;
+use Psr\Log\LoggerInterface;
+
 /**
  * TimeObjects driver for exposing weatherunderground information via the
  * listTimeObjects API.
@@ -11,14 +23,18 @@
  * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
+class Weather extends Base
 {
     protected $_forecastDays = Horde_Service_Weather::FORECAST_7DAY;
     protected $_location;
 
-    public function __construct(array $params)
+    public function __construct(array $params, ?LoggerInterface $logger = null)
     {
         global $registry, $prefs;
+
+        // Parent must run first so $this->logger is populated before
+        // _findLocation() (which may need to log lookup failures).
+        parent::__construct($params, $logger);
 
         // Assume if it's passed in, we know it's valid.
         if (!empty($params['location'])) {
@@ -26,8 +42,6 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         } else {
             $this->_findLocation();
         }
-
-        parent::__construct($params);
     }
 
     /**
@@ -42,7 +56,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         }
         try {
             $this->_create();
-        } catch (Exception $e) {
+        } catch (BaseException $e) {
             return false;
         }
 
@@ -78,7 +92,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             $forecast = $weather->getForecast($this->_location, max(array_keys($lengths)));
             $current = $weather->getCurrentConditions($this->_location);
         } catch (Horde_Service_Weather_Exception $e) {
-            throw new Timeobjects_Exception($e);
+            throw new Exception($e);
         }
 
         $objects = [];
@@ -175,7 +189,7 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
             && $registry->hasInterface('contacts')) {
             try {
                 $contact = $GLOBALS['registry']->contacts->ownContact();
-            } catch (Exception $e) {
+            } catch (BaseException $e) {
             }
             if (!empty($contact['homeCountry'])) {
                 $country = $contact['homeCountry'];
@@ -196,15 +210,18 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
         // Ensure we have a valid location code for the location.
         try {
             $driver = $this->_create();
-        } catch (Exception $e) {
+        } catch (BaseException $e) {
             return;
         }
         if (!empty($location)) {
             try {
                 $location = $driver->searchLocations($location);
             } catch (Horde_Service_Weather_Exception $e) {
-                Horde::log($e, 'ERR');
-                throw new Timeobjects_Exception($e);
+                $this->logger->error(
+                    'Weather location lookup failed: ' . $e->getMessage(),
+                    ['exception' => $e]
+                );
+                throw new Exception($e);
             }
         } else {
             try {
@@ -234,8 +251,8 @@ class TimeObjects_Driver_Weather extends TimeObjects_Driver_Base
     {
         try {
             $driver = $GLOBALS['injector']->getInstance('Horde_Weather');
-        } catch (Exception $e) {
-            throw new Timeobjects_Exception($e);
+        } catch (BaseException $e) {
+            throw new Exception($e);
         }
         // Suggest units, but the driver may override this (like Google).
         $country = substr($GLOBALS['language'], -2);

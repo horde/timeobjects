@@ -38,6 +38,7 @@ dependencies:
       horde/exception: ^3
       horde/url: ^3
       horde/util: ^3
+      psr/log: ^1 || ^2 || ^3
     ext:
       gettext: '*'
   optional:

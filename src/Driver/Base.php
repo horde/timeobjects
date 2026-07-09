@@ -1,5 +1,12 @@
 <?php
 
+namespace Horde\Timeobjects\Driver;
+
+use Horde\Timeobjects\Exception;
+use Horde_Date;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
 /**
  * Base TimeObjects_Driver.
  *
@@ -10,18 +17,27 @@
  * @category Horde
  * @package TimeObjects
  */
-abstract class TimeObjects_Driver_Base
+abstract class Base
 {
     protected $_params = [];
 
     /**
+     * PSR-3 logger for driver diagnostics.
+     */
+    protected LoggerInterface $logger;
+
+    /**
      * Constructor
      *
-     * @param array $params  The parameter array.
+     * @param array $params            The parameter array.
+     * @param LoggerInterface|null $logger  PSR-3 logger. Defaults to a
+     *                                      NullLogger so drivers instantiated
+     *                                      without DI stay silent.
      */
-    public function __construct(array $params)
+    public function __construct(array $params, ?LoggerInterface $logger = null)
     {
         $this->_params = array_merge($this->_params, $params);
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -46,15 +62,15 @@ abstract class TimeObjects_Driver_Base
      * @param $name
      * @param $params
      *
-     * @return TimeObjects_Driver
+     * @return Base
      */
     public function factory($name, array $params = [])
     {
-        $class = 'TimeObjects_Driver_' . basename($name);
+        $class = 'Horde\\Timeobjects\\Driver\\' . basename($name);
         if (class_exists($class)) {
-            return new $class($params);
+            return new $class($params, $this->logger);
         } else {
-            throw new TimeObjects_Exception(sprintf('Unable to load the definition of %s', $class));
+            throw new Exception(sprintf('Unable to load the definition of %s', $class));
         }
     }
 

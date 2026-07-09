@@ -1,5 +1,12 @@
 <?php
 
+namespace Horde\Timeobjects\Driver;
+
+use Horde\Timeobjects\Exception;
+use Horde_Date;
+use Horde_Date_Recurrence;
+use Horde_Service_Facebook_Exception;
+
 /**
  * TimeObjects driver for exposing a user's Facebook Events via the
  * listTimeObjects API.
@@ -11,7 +18,7 @@
  * @category Horde
  * @package TimeObjects
  */
-class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
+class FacebookEvents extends Base
 {
     private $_fb_session;
 
@@ -44,7 +51,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
             $fb = $this->_getFacebook();
             $events = $fb->events->get();
         } catch (Horde_Service_Facebook_Exception $e) {
-            throw new TimeObjects_Exception($e->getMessage());
+            throw new Exception($e->getMessage());
         }
         $cache = $GLOBALS['injector']->getInstance('Horde_Cache');
         $key = 'timeobjects.facebook|' . $GLOBALS['registry']->getAuth() . '|' . (string) $start . '|' . (string) $time;
@@ -101,7 +108,7 @@ class TimeObjects_Driver_FacebookEvents extends TimeObjects_Driver_Base
         if ((empty($this->_fb_session['uid'])
              || empty($this->_fb_session['sid']))
             && !$this->ensure()) {
-            throw new TimeObjects_Exception('Cannot load Facebook object.');
+            throw new Exception('Cannot load Facebook object.');
         }
 
         return $GLOBALS['injector']->getInstance('Horde_Service_Facebook');
