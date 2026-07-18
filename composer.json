@@ -21,7 +21,7 @@
         "weather",
         "custom_data"
     ],
-    "time": "2026-06-30",
+    "time": "2026-07-18",
     "repositories": [],
     "require": {
         "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^3 || ^2",
@@ -40,6 +40,9 @@
         "horde/service_weather": "^3 || dev-FRAMEWORK_6_0"
     },
     "autoload": {
+        "psr-0": {
+            "Timeobjects": "lib/"
+        },
         "psr-4": {
             "Horde\\Timeobjects\\": "src/"
         }
