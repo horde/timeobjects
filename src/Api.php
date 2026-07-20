@@ -38,13 +38,27 @@ class Api extends Horde_Registry_Api
         $injector = $GLOBALS['injector'];
         $factory = $injector->getInstance(DriverFactory::class);
         $logger = $injector->getInstance(LoggerInterface::class);
-        $tests = ['Weather' => _("Weather"),
-            'FacebookEvents' => _("Facebook Events")];
+        // Drivers depend on optional Composer suggest packages. Missing
+        // packages are normal — skip without error spam. ensure() also
+        // returns false when the matching Horde conf is disabled.
+        $tests = [
+            'Weather' => [
+                'title' => _("Weather"),
+                'requires' => 'Horde_Service_Weather',
+            ],
+            'FacebookEvents' => [
+                'title' => _("Facebook Events"),
+                'requires' => 'Horde_Service_Facebook',
+            ],
+        ];
         $drivers = [];
-        foreach ($tests as $driver => $description) {
+        foreach ($tests as $driver => $meta) {
+            if (!class_exists($meta['requires'])) {
+                continue;
+            }
             try {
                 if ($factory->create($driver)->ensure()) {
-                    $drivers[$driver] = ['title' => $description, 'type' => 'single'];
+                    $drivers[$driver] = ['title' => $meta['title'], 'type' => 'single'];
                 }
             } catch (Exception $e) {
                 $logger->error(
