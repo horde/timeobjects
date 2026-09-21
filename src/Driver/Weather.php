@@ -4,6 +4,7 @@ namespace Horde\Timeobjects\Driver;
 
 use Exception as BaseException;
 use Horde\Timeobjects\Exception;
+use Horde\Timeobjects\TimeobjectsConfig;
 use Horde_Date;
 use Horde_Date_Recurrence;
 use Horde_Service_Weather;
@@ -51,7 +52,7 @@ class Weather extends Base
      */
     public function ensure()
     {
-        if (empty($GLOBALS['conf']['weather']['provider']) || empty($this->_location)) {
+        if (empty($GLOBALS['injector']->get(TimeobjectsConfig::class)->get('weather.provider')) || empty($this->_location)) {
             return false;
         }
         try {
@@ -72,7 +73,7 @@ class Weather extends Base
      */
     public function listTimeObjects(?Horde_Date $start = null, ?Horde_Date $end = null)
     {
-        global $conf, $prefs;
+        global $prefs;
 
         // No need to continue if the forecast days are not in the current
         // range. If either bound is unspecified, assume the caller wants

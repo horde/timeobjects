@@ -3,6 +3,7 @@
 namespace Horde\Timeobjects\Driver;
 
 use Horde\Timeobjects\Exception;
+use Horde\Timeobjects\TimeobjectsConfig;
 use Horde_Date;
 use Horde_Date_Recurrence;
 use Horde_Service_Facebook_Exception;
@@ -24,7 +25,7 @@ class FacebookEvents extends Base
 
     public function ensure()
     {
-        if (!$GLOBALS['conf']['facebook']['enabled']) {
+        if (!$GLOBALS['injector']->get(TimeobjectsConfig::class)->get('facebook.enabled')) {
             return false;
         }
 
